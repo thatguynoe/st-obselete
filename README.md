@@ -30,6 +30,6 @@ cd st
 sudo make install
 ```
 
-## Please install `libxft-bgra`^`aur`^!
+## Please install `libxft-bgra`<sup>`aur`</sup>!
 
-In order for st to display color emojis, the `libxft-bgra`^`aur`^ package must be installed---else, st will crash.
+In order for st to display color emojis, the `libxft-bgra`<sup>`aur`</sup> package must be installed---else, st will crash.
