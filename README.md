@@ -17,7 +17,7 @@ My build of st is heavily inspired by [Luke Smith's build](https://github.com/Lu
 * [**bold-is-not-bright-20190127-3be4cf1**](https://st.suckless.org/patches/bold-is-not-bright/st-bold-is-not-bright-20190127-3be4cf1.diff) is self-explanatory.
 * [**boxdraw_v2-0.8.3**](https://st.suckless.org/patches/boxdraw/st-boxdraw_v2-0.8.3.diff) renders lines/blocks characters better.
 * [**externalpipe-0.8.4**](https://st.suckless.org/patches/externalpipe/st-externalpipe-0.8.4.diff) provides functionality for opening and copying urls.
-* [**font2-20190416-ba72400**](https://st.suckless.org/patches/font2/st-font2-20190416-ba72400.diff) supports multiple fonts.
+* [**font2-20190416-ba72400**](https://st.suckless.org/patches/font2/st-font2-20190416-ba72400.diff) adds support for multiple fonts.
 * [**gruvbox-dark-0.8.2**](https://st.suckless.org/patches/gruvbox/st-gruvbox-dark-0.8.2.diff) enables the gruvbox theme.
 * [**scrollback-20201205-4ef0cbd**](https://st.suckless.org/patches/scrollback/st-scrollback-20201205-4ef0cbd.diff) allows for scrolling in st.
 * [**vertcenter-20180320-6ac8c8a**](https://st.suckless.org/patches/vertcenter/st-vertcenter-20180320-6ac8c8a.diff) vertically centers lines.
