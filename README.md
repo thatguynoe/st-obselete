@@ -10,7 +10,7 @@ My build of st is heavily inspired by [Luke Smith's build](https://github.com/Lu
 * **copy text** with `alt-y`, **paste** with `alt-p` or `shift-insert`.
 * **copy command output** with `alt-o`, **open urls** with `alt-l`, and **copy urls** with `alt-i`.
 
-## Patches and features:
+## Patches and features
 
 * [**alpha-0.8.2**](https://st.suckless.org/patches/alpha/st-alpha-0.8.2.diff) provides transparency---make sure you have a composite manager (such as `xcompmgr` or `picom`) installed for this to work.
 * [**anysize-0.8.1**](https://st.suckless.org/patches/anysize/st-anysize-0.8.1.diff) allows st to fill the entire space allocated to it.
