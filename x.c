@@ -45,6 +45,14 @@ typedef struct {
 	signed char appcursor; /* application cursor */
 } Key;
 
+/* Undercurl slope types */
+enum undercurl_slope_type {
+	UNDERCURL_SLOPE_ASCENDING = 0,
+	UNDERCURL_SLOPE_TOP_CAP = 1,
+	UNDERCURL_SLOPE_DESCENDING = 2,
+	UNDERCURL_SLOPE_BOTTOM_CAP = 3
+};
+
 /* X modifiers */
 #define XK_ANY_MOD    UINT_MAX
 #define XK_NO_MOD     0
@@ -1520,6 +1528,51 @@ xmakeglyphfontspecs(XftGlyphFontSpec *specs, const Glyph *glyphs, int len, int x
 	return numspecs;
 }
 
+static int isSlopeRising (int x, int iPoint, int waveWidth)
+{
+	//    .     .     .     .
+	//   / \   / \   / \   / \
+	//  /   \ /   \ /   \ /   \
+	// .     .     .     .     .
+
+	// Find absolute `x` of point
+	x += iPoint * (waveWidth/2);
+
+	// Find index of absolute wave
+	int absSlope = x / ((float)waveWidth/2);
+
+	return (absSlope % 2);
+}
+
+static int getSlope (int x, int iPoint, int waveWidth)
+{
+	// Sizes: Caps are half width of slopes
+	//    1_2       1_2       1_2      1_2
+	//   /   \     /   \     /   \    /   \
+	//  /     \   /     \   /     \  /     \
+	// 0       3_0       3_0      3_0       3_
+	// <2->    <1>         <---6---->
+
+	// Find type of first point
+	int firstType;
+	x -= (x / waveWidth) * waveWidth;
+	if (x < (waveWidth * (2.f/6.f)))
+		firstType = UNDERCURL_SLOPE_ASCENDING;
+	else if (x < (waveWidth * (3.f/6.f)))
+		firstType = UNDERCURL_SLOPE_TOP_CAP;
+	else if (x < (waveWidth * (5.f/6.f)))
+		firstType = UNDERCURL_SLOPE_DESCENDING;
+	else
+		firstType = UNDERCURL_SLOPE_BOTTOM_CAP;
+
+	// Find type of given point
+	int pointType = (iPoint % 4);
+	pointType += firstType;
+	pointType %= 4;
+
+	return pointType;
+}
+
 void
 xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, int y)
 {
@@ -1642,8 +1695,158 @@ xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, i
 
 	/* Render underline and strikethrough. */
 	if (base.mode & ATTR_UNDERLINE) {
-		XftDrawRect(xw.draw, fg, winx, winy + win.cyo + dc.font.ascent + 1,
-				width, 1);
+		// Underline Color
+		const int widthThreshold  = 28; // +1 width every widthThreshold px of font
+		int wlw = (win.ch / widthThreshold) + 1; // Wave Line Width
+		int linecolor;
+		if ((base.ucolor[0] >= 0) &&
+			!(base.mode & ATTR_BLINK && win.mode & MODE_BLINK) &&
+			!(base.mode & ATTR_INVISIBLE)
+		) {
+			// Special color for underline
+			// Index
+			if (base.ucolor[1] < 0) {
+				linecolor = dc.col[base.ucolor[0]].pixel;
+			}
+			// RGB
+			else {
+				XColor lcolor;
+				lcolor.red = base.ucolor[0] * 257;
+				lcolor.green = base.ucolor[1] * 257;
+				lcolor.blue = base.ucolor[2] * 257;
+				lcolor.flags = DoRed | DoGreen | DoBlue;
+				XAllocColor(xw.dpy, xw.cmap, &lcolor);
+				linecolor = lcolor.pixel;
+			}
+		} else {
+			// Foreground color for underline
+			linecolor = fg->pixel;
+		}
+
+		XGCValues ugcv = {
+			.foreground = linecolor,
+			.line_width = wlw,
+			.line_style = LineSolid,
+			.cap_style = CapNotLast
+		};
+
+		GC ugc = XCreateGC(xw.dpy, XftDrawDrawable(xw.draw),
+			GCForeground | GCLineWidth | GCLineStyle | GCCapStyle,
+			&ugcv);
+
+		// Underline Style
+		if (base.ustyle != 3) {
+			//XftDrawRect(xw.draw, fg, winx, winy + dc.font.ascent + 1, width, 1);
+			XFillRectangle(xw.dpy, XftDrawDrawable(xw.draw), ugc, winx,
+				winy + dc.font.ascent + 1, width, wlw);
+		} else if (base.ustyle == 3) {
+			int ww = win.cw;//width;
+			int wh = dc.font.descent - wlw/2 - 1;//r.height/7;
+			int wx = winx;
+			int wy = winy + win.ch - dc.font.descent;
+
+			// Make the underline corridor larger
+			/*
+			wy -= wh;
+			*/
+			wh *= 2;
+
+			// Set the angle of the slope to 45°
+			ww = wh;
+
+			// Position of wave is independent of word, it's absolute
+			wx = (wx / (ww/2)) * (ww/2);
+
+			int marginStart = winx - wx;
+
+			// Calculate number of points with floating precision
+			float n = width;					// Width of word in pixels
+			n = (n / ww) * 2;					// Number of slopes (/ or \)
+			n += 2;								// Add two last points
+			int npoints = n;					// Convert to int
+
+			// Total length of underline
+			float waveLength = 0;
+
+			if (npoints >= 3) {
+				// We add an aditional slot in case we use a bonus point
+				XPoint *points = xmalloc(sizeof(XPoint) * (npoints + 1));
+
+				// First point (Starts with the word bounds)
+				points[0] = (XPoint) {
+					.x = wx + marginStart,
+					.y = (isSlopeRising(wx, 0, ww))
+						? (wy - marginStart + ww/2.f)
+						: (wy + marginStart)
+				};
+
+				// Second point (Goes back to the absolute point coordinates)
+				points[1] = (XPoint) {
+					.x = (ww/2.f) - marginStart,
+					.y = (isSlopeRising(wx, 1, ww))
+						? (ww/2.f - marginStart)
+						: (-ww/2.f + marginStart)
+				};
+				waveLength += (ww/2.f) - marginStart;
+
+				// The rest of the points
+				for (int i = 2; i < npoints-1; i++) {
+					points[i] = (XPoint) {
+						.x = ww/2,
+						.y = (isSlopeRising(wx, i, ww))
+							? wh/2
+							: -wh/2
+					};
+					waveLength += ww/2;
+				}
+
+				// Last point
+				points[npoints-1] = (XPoint) {
+					.x = ww/2,
+					.y = (isSlopeRising(wx, npoints-1, ww))
+						? wh/2
+						: -wh/2
+				};
+				waveLength += ww/2;
+
+				// End
+				if (waveLength < width) { // Add a bonus point?
+					int marginEnd = width - waveLength;
+					points[npoints] = (XPoint) {
+						.x = marginEnd,
+						.y = (isSlopeRising(wx, npoints, ww))
+							? (marginEnd)
+							: (-marginEnd)
+					};
+
+					npoints++;
+				} else if (waveLength > width) { // Is last point too far?
+					int marginEnd = waveLength - width;
+					points[npoints-1].x -= marginEnd;
+					if (isSlopeRising(wx, npoints-1, ww))
+						points[npoints-1].y -= (marginEnd);
+					else
+						points[npoints-1].y += (marginEnd);
+				}
+
+				// Draw the lines
+				XDrawLines(xw.dpy, XftDrawDrawable(xw.draw), ugc, points, npoints,
+						CoordModePrevious);
+
+				// Draw a second underline with an offset of 1 pixel
+				if ( ((win.ch / (widthThreshold/2)) % 2)) {
+					points[0].x++;
+
+					XDrawLines(xw.dpy, XftDrawDrawable(xw.draw), ugc, points,
+							npoints, CoordModePrevious);
+				}
+
+				// Free resources
+				free(points);
+			}
+		}
+
+		XFreeGC(xw.dpy, ugc);
 	}
 
 	if (base.mode & ATTR_STRUCK) {

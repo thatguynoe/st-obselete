@@ -23,6 +23,7 @@ My build of st is heavily inspired by [Luke Smith's build](https://github.com/Lu
 * [**font2-20190416-ba72400**](https://st.suckless.org/patches/font2/st-font2-20190416-ba72400.diff) adds support for multiple fonts.
 * [**gruvbox-dark-0.8.5**](https://st.suckless.org/patches/gruvbox/st-gruvbox-dark-0.8.5.diff) enables the gruvbox theme.
 * [**scrollback-20201205-4ef0cbd**](https://st.suckless.org/patches/scrollback/st-scrollback-20201205-4ef0cbd.diff) allows for scrolling in st.
+* [**undercurl-0.8.4.-20210822**](https://st.suckless.org/patches/undercurl/st-undercurl-0.8.4-20210822.diff) adds support for special underlines.
 * [**vertcenter-20180320-6ac8c8a**](https://st.suckless.org/patches/vertcenter/st-vertcenter-20180320-6ac8c8a.diff) vertically centers lines.
 
 ## Installation
