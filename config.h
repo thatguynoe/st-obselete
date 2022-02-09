@@ -7,7 +7,7 @@
  */
 static char *font = "mono:pixelsize=20:antialias=true:autohint=true";
 static char *font2[] = { "Joy Pixels:pixelsize=18:antialias=true:autohint=true" };
-static int borderpx = 0;
+static int borderpx = 2;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -132,13 +132,14 @@ static const char *colorname[] = {
     [15] = "#ebdbb2", /* white   */
 };
 
+
 /*
  * Default colors (colorname index)
- * foreground, background, cursor
+ * foreground, background, cursor, reverse cursor
  */
 unsigned int defaultfg = 15;
 unsigned int defaultbg = 0;
-static unsigned int defaultcs = 15;
+unsigned int defaultcs = 15;
 static unsigned int defaultrcs = 257;
 
 /*
