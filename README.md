@@ -17,6 +17,7 @@ My build of st is heavily inspired by [Luke Smith's build](https://github.com/Lu
 * [**boxdraw_v2-0.8.3**](https://st.suckless.org/patches/boxdraw/st-boxdraw_v2-0.8.3.diff) renders lines/blocks characters better.
 * [**changealpha-0.8.5**](https://gist.github.com/wael444/400cc36cb7fe16650fd2d7aa67b25511) lets you change transparency on the fly.
 * [**columnredraw-0.8.4**](https://github.com/nimaipatel/st/blob/master/patches/7672445bab01cb4e861651dc540566ac22e25812.diff) prevents cutting off text after resizing.
+* [**csi_22_23-0.8.4**](https://st.suckless.org/patches/csi_22_23/st-csi_22_23-0.8.4.diff) saves and restores the window title (e.g. when opening and closing neovim).
 * [**externalpipe-0.8.4**](https://st.suckless.org/patches/externalpipe/st-externalpipe-0.8.4.diff) provides functionality for opening and copying urls.
     * [**externalpipe-eternal-0.8.3**](https://st.suckless.org/patches/externalpipe/st-externalpipe-eternal-0.8.3.diff) lets externalpipe see the entire terminal history.
 * [**font2-20190416-ba72400**](https://st.suckless.org/patches/font2/st-font2-20190416-ba72400.diff) adds support for multiple fonts.
