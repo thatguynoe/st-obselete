@@ -22,7 +22,10 @@ My build of st is heavily inspired by [Luke Smith's build](https://github.com/Lu
     * [**externalpipe-eternal-0.8.3**](https://st.suckless.org/patches/externalpipe/st-externalpipe-eternal-0.8.3.diff) lets externalpipe see the entire terminal history.
 * [**font2-20190416-ba72400**](https://st.suckless.org/patches/font2/st-font2-20190416-ba72400.diff) adds support for multiple fonts.
 * [**gruvbox-dark-0.8.5**](https://st.suckless.org/patches/gruvbox/st-gruvbox-dark-0.8.5.diff) enables the gruvbox theme.
-* [**scrollback-20201205-4ef0cbd**](https://st.suckless.org/patches/scrollback/st-scrollback-20201205-4ef0cbd.diff) allows for scrolling in st.
+* [**scrollback-20201205-4ef0cbd**](https://st.suckless.org/patches/scrollback/st-scrollback-20201205-4ef0cbd.diff) along with the three patches below allows for scrolling in st using the keyboard and/or mouse.
+    * [**scrollback-mouse-20191024-a2c479c**](https://st.suckless.org/patches/scrollback/st-scrollback-mouse-20191024-a2c479c.diff)
+    * [**scrollback-mouse-altscreen-20200416-5703aa0**](https://st.suckless.org/patches/scrollback/st-scrollback-mouse-altscreen-20200416-5703aa0.diff)
+    * [**scrollback-mouse-increment-0.8.2**](https://st.suckless.org/patches/scrollback/st-scrollback-mouse-increment-0.8.2.diff)
 * [**undercurl-0.8.4.-20210822**](https://st.suckless.org/patches/undercurl/st-undercurl-0.8.4-20210822.diff) adds support for special underlines.
 * [**vertcenter-20180320-6ac8c8a**](https://st.suckless.org/patches/vertcenter/st-vertcenter-20180320-6ac8c8a.diff) vertically centers lines.
 
