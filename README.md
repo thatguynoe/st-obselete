@@ -15,7 +15,7 @@ My build of st is heavily inspired by [Luke Smith's build](https://github.com/Lu
 * [**alpha-0.8.2**](https://st.suckless.org/patches/alpha/st-alpha-0.8.2.diff) provides transparency---make sure you have a composite manager (such as `xcompmgr` or `picom`) installed for this to work.
 * [**bold-is-not-bright-20190127-3be4cf1**](https://st.suckless.org/patches/bold-is-not-bright/st-bold-is-not-bright-20190127-3be4cf1.diff) is self-explanatory.
 * [**boxdraw_v2-0.8.3**](https://st.suckless.org/patches/boxdraw/st-boxdraw_v2-0.8.3.diff) renders lines/blocks characters better.
-* [**changealpha-0.8.5**](https://gist.github.com/wael444/400cc36cb7fe16650fd2d7aa67b25511) lets you change transparency on the fly.
+* [**changealpha-0.8.5**](https://github.com/LukeSmithxyz/st/commit/73a6020865607018f6442317e7f94fb5d54a7016) lets you change transparency on the fly.
 * [**columnredraw-0.8.4**](https://github.com/nimaipatel/st/blob/master/patches/7672445bab01cb4e861651dc540566ac22e25812.diff) prevents cutting off text after resizing.
 * [**csi_22_23-0.8.4**](https://st.suckless.org/patches/csi_22_23/st-csi_22_23-0.8.4.diff) saves and restores the window title (e.g. when opening and closing neovim).
 * [**externalpipe-0.8.4**](https://st.suckless.org/patches/externalpipe/st-externalpipe-0.8.4.diff) provides functionality for opening and copying urls.
