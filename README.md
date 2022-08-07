@@ -4,11 +4,11 @@ My build of st is heavily inspired by [Luke Smith's build](https://github.com/Lu
 
 ## Bindings
 
-* **scroll** with `alt-j`, `alt-k` or `alt-pgup`, `alt-pgdn` or `alt-↑`, `alt-↓`. Scroll faster with `alt-u`, `alt-d`.
-* **change font size** with the same bindings as above, but with holding down shift. Reset with `alt-home`.
-* **change transparency** with `alt-a`, `alt-s`.
-* **copy text** with `alt-y`, **paste** with `alt-p` or `shift-insert`.
-* **copy command output** with `alt-o`, **open urls** with `alt-l`, and **copy urls** with `alt-i`.
+* **scroll** with <kbd>alt-j</kbd>, <kbd>alt-k</kbd> or <kbd>alt-pgup</kbd>, <kbd>alt-pgdn</kbd> or <kbd>alt-↑</kbd>, <kbd>alt-↓</kbd>. Scroll faster with <kbd>alt-u</kbd>, <kbd>alt-d</kbd>.
+* **change font size** with the same bindings as above, but with holding down shift. Reset with <kbd>alt-home</kbd>.
+* **change transparency** with <kbd>alt-a</kbd>, <kbd>alt-s</kbd>.
+* **copy text** with <kbd>alt-y</kbd>, **paste** with <kbd>alt-p</kbd> or <kbd>shift-insert</kbd>.
+* **copy command output** with <kbd>alt-o</kbd>, **open urls** with <kbd>alt-l</kbd>, and **copy urls** with <kbd>alt-i</kbd>.
 
 ## Patches and features
 
