@@ -1,4 +1,4 @@
-# Noe's build of st
+# st
 
 My build of st is heavily inspired by [Luke Smith's build](https://github.com/LukeSmithxyz/st), which I strongly encourage you to check out for more info. Running on commit [`2c5edf28ec851907305d73c6218ce75d39f1767f`](https://git.suckless.org/st/commit/2c5edf28ec851907305d73c6218ce75d39f1767f.html).
 
