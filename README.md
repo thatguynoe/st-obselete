@@ -27,7 +27,6 @@ My build of st is heavily inspired by [Luke Smith's build](https://github.com/Lu
     * [**scrollback-mouse-20191024-a2c479c**](https://st.suckless.org/patches/scrollback/st-scrollback-mouse-20191024-a2c479c.diff)
     * [**scrollback-mouse-altscreen-20200416-5703aa0**](https://st.suckless.org/patches/scrollback/st-scrollback-mouse-altscreen-20200416-5703aa0.diff)
     * [**scrollback-mouse-increment-0.8.2**](https://st.suckless.org/patches/scrollback/st-scrollback-mouse-increment-0.8.2.diff)
-* [**undercurl-0.8.4.-20210822**](https://st.suckless.org/patches/undercurl/st-undercurl-0.8.4-20210822.diff) adds support for special underlines.
 * [**vertcenter-20180320-6ac8c8a**](https://st.suckless.org/patches/vertcenter/st-vertcenter-20180320-6ac8c8a.diff) vertically centers lines.
 
 ## Installation
